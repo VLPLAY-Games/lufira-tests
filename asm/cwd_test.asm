@@ -1,16 +1,11 @@
-; cwd_test.asm
-; Проверка sys_chdir()/sys_getcwd(): успешный переход, getcwd после него,
-; ENOENT на несуществующий путь, ENOTDIR на переход в обычный файл, ERANGE
-; на слишком маленький буфер. Специально НЕ делает exec() и завершается
-; нормально через SYS_EXIT — после выхода cwd шелла (родителя) не должен
-; измениться (проверяется отдельно командой pwd в шелле, руками/скриптом).
+; cwd_test.asm — chdir/getcwd: успешный переход, getcwd после него,
+; ENOENT/ENOTDIR/ERANGE на плохие пути/буфер. Завершается SYS_EXIT без
+; exec() — cwd шелла (родителя) не должен измениться (проверить pwd).
 ;
-; SYS_WRITE=0, SYS_EXIT=2, SYS_GETCWD=14, SYS_CHDIR=15.
-; ENOENT=2, ENOTDIR=20, ERANGE=34.
+; SYS_WRITE=0, SYS_EXIT=2, SYS_GETCWD=14, SYS_CHDIR=15. ENOENT=2,
+; ENOTDIR=20, ERANGE=34.
 ;
-; Сборка:
-; nasm -f elf64 cwd_test.asm -o cwd_test.o
-; ld -m elf_x86_64 -o cwd_test.elf cwd_test.o
+; Сборка: см. build.py (build_asm_tests()).
 
 global _start
 

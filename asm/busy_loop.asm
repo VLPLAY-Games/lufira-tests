@@ -1,14 +1,9 @@
-; busy_loop.asm
-; Тест вытесняющей многозадачности: программа, которая НИ РАЗУ не делает
-; syscall (даже SYS_EXIT) — крутит бесконечный счётчик. До появления
-; context_enter_ring3()/timer-preemption такая программа никогда не
-; покидала ring0 и не могла быть вытеснена таймером, поэтому одна
-; занимала процессор навсегда (см. Makefile-цель debug и план в
-; documentation — сценарий проверки preemptive multitasking).
+; busy_loop.asm — тест вытесняющей многозадачности: процесс без единого
+; syscall (даже SYS_EXIT), крутит бесконечный счётчик. До
+; context_enter_ring3()/timer-preemption такой процесс не покидал ring0
+; и не мог быть вытеснен таймером — зависал навсегда.
 ;
-; Сборка:
-; nasm -f elf64 busy_loop.asm -o busy_loop.o
-; ld -m elf_x86_64 -o busy_loop.elf busy_loop.o
+; Сборка: см. build.py (build_asm_tests()).
 
 global _start
 

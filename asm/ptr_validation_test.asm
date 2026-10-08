@@ -1,15 +1,12 @@
 ; ptr_validation_test.asm
-; Проверка валидации user-указателей в syscall'ах: заведомо плохие адреса
-; (адрес кучи ядра и низкий немаппленный-для-user адрес) должны давать
-; -EFAULT (-14), а не падение системы и не тихий успех. В конце —
-; позитивный контроль (валидный буфер должен по-прежнему срабатывать).
+; Проверка валидации user-указателей в syscall'ах: плохие адреса (куча
+; ядра / немаппленный-для-user низкий адрес) должны давать -EFAULT (-14),
+; не падение системы и не тихий успех; в конце — позитивный контроль.
 ;
 ; SYS_WRITE=0, SYS_READ=1, SYS_EXIT=2, SYS_OPEN=6, SYS_FORK=12, SYS_WAIT=13,
 ; SYS_PIPE=18. EFAULT=14.
 ;
-; Сборка:
-; nasm -f elf64 ptr_validation_test.asm -o ptr_validation_test.o
-; ld -m elf_x86_64 -o ptr_validation_test.elf ptr_validation_test.o
+; Сборка: см. build.py (build_asm_tests()).
 
 global _start
 
@@ -110,8 +107,8 @@ _start:
     cmp rax, -14
     jne .t6_fail
     PRINT t6_ok, t6_ok_len
-    ; ребёнок ещё не отреапан (process_wait() выше не вызывался) — реапим
-    ; нормальным wait(status_ptr=0), чтобы не плодить зомби
+    ; ребёнок ещё не отреапан — реапим нормальным wait(status_ptr=0),
+    ; чтобы не плодить зомби
     xor rdi, rdi
     xor rsi, rsi
     xor rdx, rdx

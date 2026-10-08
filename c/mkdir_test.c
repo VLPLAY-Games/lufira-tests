@@ -1,12 +1,8 @@
 // mkdir_test.c — проверяет новые syscall'ы SYS_MKDIR/SYS_RMDIR/SYS_UNLINK/
-// SYS_READDIR (kernel/system/syscall/syscall.c), которых не было вообще —
-// vfs_mkdir()/vfs_rmdir()/vfs_unlink()/vfs_readdir() (vfs.h) уже были
-// реализованы, но не выставлены ни одним syscall'ом наружу в ring3.
+// SYS_READDIR (syscall.c) — vfs_mkdir()/vfs_rmdir()/vfs_unlink()/
+// vfs_readdir() (vfs.h) уже были реализованы, но не выставлены в ring3.
 //
-// Сборка — как у hello.c (см. header-комментарий там же):
-//   gcc $FLAGS -c test/c/mkdir_test.c -o mkdir_test.o
-//   ld -m elf_x86_64 -static -nostdlib -no-pie -o mkdir_test.elf
-//      crt0.o mkdir_test.o string.o malloc.o printf.o stdlib.o
+// Сборка: см. build.py (build_c_tests()).
 
 #include <stdio.h>
 #include <lufira/syscall.h>

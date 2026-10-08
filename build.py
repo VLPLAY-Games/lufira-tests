@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""lufira-tests — its own build, independent of LufiraOS-Builder (v0.7 plan,
-stage 7). Builds every test under asm/ and c/ into a standalone .elf, then
-packs the results into a versioned release archive under dist/.
+"""lufira-tests — build script, independent of LufiraOS-Builder. Builds
+every test under asm/ and c/ into a standalone .elf, then packs the
+results into a versioned release archive under dist/.
 
-The C tests still need LufiraOS's libc (crt0.S + a few libc/src/*.c) to
-link against, so this script takes --lufira-repo (default: sibling
-checkout) purely as a source of that libc — same pattern as
-LufiraOS-Builder's --lufira-repo for the kernel/bootloader. The .asm tests
-need nothing beyond nasm + ld and don't touch --lufira-repo at all.
+C tests link against LufiraOS's libc (crt0.S + a few libc/src/*.c), so
+this script takes --lufira-repo (default: sibling checkout) purely as a
+source of that libc — same pattern as LufiraOS-Builder's --lufira-repo
+for the kernel/bootloader. .asm tests need only nasm+ld, no --lufira-repo.
 """
 
 import argparse
@@ -98,10 +97,9 @@ def package(elves: list, dist_dir: Path, version: str) -> Path:
         for elf in elves:
             tf.add(elf, arcname=elf.name)
 
-    # "latest" is what LufiraOS-Builder resolves today, in the absence of
-    # a real release server (same stub-path pattern as lufira-packages'
-    # "lpg" field) — swapping this for a real GitHub Releases URL later
-    # doesn't change anything downstream of this function.
+    # "latest" is what LufiraOS-Builder resolves today (no real release
+    # server yet) — swapping in a real GitHub Releases URL later needs no
+    # change downstream of this function.
     latest_path = dist_dir / "lufira-tests-latest.tar.gz"
     shutil.copyfile(archive_path, latest_path)
     return archive_path

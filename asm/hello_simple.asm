@@ -3,9 +3,7 @@
 ; sys_exit   = 2
 ; sys_sleep  = 16
 ;
-; Сборка:
-; nasm -f elf64 hello_simple.asm -o hello_simple.o
-; ld -m elf_x86_64 -o hello.elf hello_simple.o
+; Сборка: см. build.py (build_asm_tests()).
 
 global _start
 

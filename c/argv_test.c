@@ -1,9 +1,8 @@
 // argv_test.c — проверяет реальную передачу argc/argv/envp через
-// crt0.S -> main() (kernel/system/process/process.c: build_exec_stack(),
-// kernel/system/elf/elf.c: elf_exec()/elf_exec_replace()) — раньше ядро
-// вообще не передавало аргументы командной строки ни в каком виде.
+// crt0.S -> main() (build_exec_stack() в process.c, elf_exec() в elf.c) —
+// раньше ядро не передавало аргументы командной строки вовсе.
 //
-// Сборка — как у hello.c (см. header-комментарий там же).
+// Сборка: см. build.py (build_c_tests()).
 
 #include <stdio.h>
 #include <lufira/syscall.h>

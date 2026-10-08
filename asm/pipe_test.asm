@@ -2,9 +2,7 @@
 ; Демонстрация pipe() + fork(): родитель пишет в трубу, ребёнок читает.
 ; SYS_WRITE=0, SYS_READ=1, SYS_EXIT=2, SYS_CLOSE=7, SYS_FORK=12, SYS_PIPE=18
 ;
-; Сборка:
-; nasm -f elf64 pipe_test.asm -o pipe_test.o
-; ld -m elf_x86_64 -o pipe_test.elf pipe_test.o
+; Сборка: см. build.py (build_asm_tests()).
 
 global _start
 

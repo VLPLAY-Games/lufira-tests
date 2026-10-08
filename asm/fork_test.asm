@@ -1,9 +1,6 @@
-; fork_test.asm
-; Демонстрация fork(): SYS_WRITE = 0, SYS_EXIT = 2, SYS_FORK = 12
+; fork_test.asm — демонстрация fork(): SYS_WRITE=0, SYS_EXIT=2, SYS_FORK=12
 ;
-; Сборка:
-; nasm -f elf64 fork_test.asm -o fork_test.o
-; ld -m elf_x86_64 -o fork_test.elf fork_test.o
+; Сборка: см. build.py (build_asm_tests()).
 
 global _start
 
